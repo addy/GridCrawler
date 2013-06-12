@@ -1,30 +1,32 @@
+
 #include "gameplay.h"
-#include "functions.h"
-#include <iostream>
 
-Functions* GamePlay::turn(Functions* p) {
-	char move;
-	p->print();
-	std::cout << "Enter (u)p, (d)own, (l)eft, or (r)ight ";
-	std::cin >> move;
-	switch(move) {
-		case 'u':
-			p->player->moveUp();
-			break;
-		case 'd':
-			p->player->moveDown();
-			break;
-		case 'l':
-			p->player->moveLeft();
-			break;
-		case 'r':
-			p->player->moveRight();
-			break;
-		default: 
-			break;
-	}
+GamePlay::GamePlay(void) {
+	player = new Entity(PLAYER_TYPE);
+	
+	player->setTexture("Brain Jelly.png");
 
-	p->moveMonster();
+	currentMap = new Map(10, 10, player);
+}
 
-	return p;
+
+void GamePlay::checkKeys(void) {
+
+	if		(sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) && !currentMap->isWall(WEST, player->getPos())) player->moveWest();
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !currentMap->isWall(EAST, player->getPos())) player->moveEast();
+
+	if		(sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) && !currentMap->isWall(NORTH, player->getPos())) player->moveNorth();
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !currentMap->isWall(SOUTH, player->getPos())) player->moveSouth();	
+
+}
+
+
+
+void GamePlay::draw(sf::RenderWindow* window) {
+	//ANIMATION AND VIDEO STUFFS. HANDLE ANY ANIMATION / SPRITE MOVEMENTS
+
+	
+	(*window).draw(*player->getSprite());
+
+
 }

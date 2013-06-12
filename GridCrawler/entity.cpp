@@ -1,25 +1,52 @@
+
 #include "entity.h"
 
-Entity::Entity(Position* currentPos) {
-	this->currentPos = currentPos;
+Entity::Entity(entity_t t) {
+	type = t;
+	pos = new Position(0,0);
 }
 
-void Entity::moveUp() {
-	if(currentPos->row != 0)
-		currentPos->row = currentPos->row - 1;
+void Entity::move(int r, int c) {
+	pos->row = r;
+	pos->col = c;
 }
 
-void Entity::moveDown() {
-	if(currentPos->row != 9)
-		currentPos->row = currentPos->row + 1;
+void Entity::moveNorth(void) {
+	pos->row--;
+	//ANIMATION QUEUE
 }
 
-void Entity::moveLeft() {
-	if(currentPos->col != 0)
-		currentPos->col = currentPos->col - 1;
+void Entity::moveEast(void) {
+	pos->col++;
+	//ANIMATION QUEUE
 }
 
-void Entity::moveRight() {
-	if(currentPos->col != 9)
-		currentPos->col = currentPos->col + 1;
+void Entity::moveSouth(void) {
+	pos->row++;
+	//ANIMATION QUEUE
+}
+
+void Entity::moveWest(void) {
+	pos->col--;
+	//ANIMATION QUEUE
+}
+
+Position* Entity::getPos(void) {
+	return pos;
+}
+
+
+void Entity::setTexture(char* str) {
+	if (!texture.loadFromFile(str))
+	{
+		//ERROR!
+	}
+	sprite.setTexture(texture);
+
+	sprite.setPosition(sf::Vector2f(100, 100)); //TEMP
+
+}
+
+sf::Sprite* Entity::getSprite(void) {
+	return &sprite;
 }

@@ -1,27 +1,42 @@
-#include <iostream>
-#include "functions.h"
-#include "gameplay.h"
 #include <SFML\Graphics.hpp>
+#include "gameplay.h"
+
+void UpdateWindow(void);
+
+sf::RenderWindow window;
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "Grid Crawler");
+	sf::RenderWindow window(sf::VideoMode(800, 500), "Grid Crawler");
 
-	sf::Sprite sprite;
-    sf::Texture image;
 
-	image.loadFromFile("\Graphics\Textures\dirt_0.png");
-	sprite.setTexture(image);
-	sprite.setPosition(50.0f, 50.0f);
-	window.draw(sprite);
 
-	Functions* p = new Functions();
+
 	GamePlay* g = new GamePlay();
 
-	while(true) {
-		system("CLS");
-		p = g->turn(p);
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			// Close window : exit
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+
+		g->checkKeys();
+
+		window.clear(sf::Color::Black);
+
+
+		g->draw(&window);
+
+
+		window.display();
+
+
+
 	}
 
-	system("PAUSE");
 	return 0;
 }

@@ -1,10 +1,20 @@
 #ifndef GAME_H
 #define GAME_H
-#include "functions.h"
+
+#include <SFML\Graphics.hpp>
+#include <SFML\Window.hpp>
+#include "map.h"
+#include "entity.h"
 
 class GamePlay {
+private:
+	Map* currentMap;
+	Entity* player;
+
 public:
-	Functions* turn(Functions*);
+	GamePlay(void);
+	void checkKeys(void);
+	void draw(sf::RenderWindow*);
 };
 
 #endif
