@@ -3,13 +3,14 @@
 
 Map::Map(int w, int h, Entity* player) {
 	dungeonWalls = new bool*[h];
+	width = w;
+	height = h;
 	for(int r = 0; r < h; r++) {
 		dungeonWalls[r] = new bool[w];
 
 		
 		for(int c = 0; c < w; c++) {
-			if(r == 0 || r == h-1 || c == 0 || c == w-1) dungeonWalls[r][c] = true; //set walls around outer edge;
-
+			dungeonWalls[r][c] = false;
 			//read from csv file to get map walls / traps?
 		}
 	}
@@ -23,18 +24,22 @@ Map::Map(int w, int h, Entity* player) {
 
 
 inline bool Map::isWall(Position* p) {
-	return dungeonWalls[p->row][p->col];
+	return (p->col < width  && p->col >= 0 &&
+			p->row < height && p->col >= 0) ? dungeonWalls[p->row][p->col] : true;
 }
 
-
+inline bool Map::isWall(int r, int c) {
+	return (c < width  && c >= 0 &&
+			r < height && r >= 0) ? dungeonWalls[r][c] : true;
+}
 
 inline bool Map::isWall(heading_t h, Position* p) {
-	return	(h == NORTH) ? dungeonWalls[p->row-1][p->col  ] :
-			(h == EAST ) ? dungeonWalls[p->row  ][p->col+1] :
-			(h == SOUTH) ? dungeonWalls[p->row+1][p->col  ] :
-						   dungeonWalls[p->row  ][p->col-1] ;
-			
+	return	(h == NORTH) ? isWall(p->row-1, p->col  ) :
+			(h == EAST ) ? isWall(p->row  , p->col+1) :
+			(h == SOUTH) ? isWall(p->row+1, p->col  ) :
+			(h == WEST ) ? isWall(p->row  , p->col-1) : true;			
 }
+
 
 void Map::handleMonsterMovement(void) {
 	for(unsigned int i = 0; i < monsters.size(); i++) {

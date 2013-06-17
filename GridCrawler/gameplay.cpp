@@ -10,14 +10,28 @@ GamePlay::GamePlay(void) {
 }
 
 
-void GamePlay::checkKeys(void) {
+bool GamePlay::checkKeys(void) {
+	bool keyWasPressed = false;
 
-	if		(sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) && !currentMap->isWall(WEST, player->getPos())) player->moveWest();
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !currentMap->isWall(EAST, player->getPos())) player->moveEast();
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && !currentMap->isWall(WEST, player->getPos())) {
+		player->moveWest();
+		keyWasPressed = true;
+	} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D )) && !currentMap->isWall(EAST, player->getPos())) {
+		player->moveEast();
+		keyWasPressed = true;
+	}
 
-	if		(sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) && !currentMap->isWall(NORTH, player->getPos())) player->moveNorth();
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !currentMap->isWall(SOUTH, player->getPos())) player->moveSouth();	
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && !currentMap->isWall(NORTH, player->getPos())) {
+		player->moveNorth();
+		keyWasPressed = true;
+	} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )) && !currentMap->isWall(SOUTH, player->getPos())) {
+		player->moveSouth();
+		keyWasPressed = true;
+	}
 
+	return keyWasPressed;
+
+	//Need to not call this method again till animation sequence is finished.
 }
 
 

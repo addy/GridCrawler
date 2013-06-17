@@ -31,6 +31,7 @@ public:
 	void handleMonsterMovement(void);
 
 	bool isWall(Position*);
+	bool isWall(int, int);
 	bool isWall(heading_t, Position*);
 };
 

@@ -13,7 +13,7 @@ private:
 
 public:
 	GamePlay(void);
-	void checkKeys(void);
+	bool checkKeys(void);
 	void draw(sf::RenderWindow*);
 };
 

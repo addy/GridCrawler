@@ -16,6 +16,8 @@ private:
 	Position* pos;
 	sf::Sprite sprite;
 	sf::Texture texture;
+	float windowX; //Top left corner is 0,0
+	float windowY; //Y increases downscreen
 
 public:
 	
