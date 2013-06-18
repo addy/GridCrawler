@@ -7,7 +7,6 @@
 #define TRAP_TYPE		3
 
 #include <SFML\Graphics.hpp>
-#include "utilities.h"
 #include "position.h"
 
 class Entity {
@@ -15,7 +14,7 @@ private:
 	entity_t type;
 	Position* pos;
 	sf::Sprite sprite;
-	sf::Texture texture;
+	sf::Texture* texture;
 	float windowX; //Top left corner is 0,0
 	float windowY; //Y increases downscreen
 
@@ -30,6 +29,7 @@ public:
 	Position* getPos(void);
 
 	void setTexture(char*);
+	void setTexture(sf::Texture*);
 	sf::Sprite* getSprite(void);
 
 	

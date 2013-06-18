@@ -4,7 +4,6 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\Window.hpp>
 #include "map.h"
-#include "entity.h"
 
 class GamePlay {
 private:

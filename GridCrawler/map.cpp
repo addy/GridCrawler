@@ -1,7 +1,7 @@
 #include "map.h"
 
 
-Map::Map(int w, int h, Entity* player) {
+Map::Map(int w, int h, Entity* player, map_locale_t mapType ) {
 	dungeonWalls = new bool*[h];
 	width = w;
 	height = h;
@@ -15,6 +15,17 @@ Map::Map(int w, int h, Entity* player) {
 		}
 	}
 
+
+
+	//load textures based on mapType
+	textures = (sf::Texture *) malloc(sizeof(sf::Texture)*DUNGEON_TEXTURES_LIST_SIZE);
+
+	for(int i = 0; i < DUNGEON_TEXTURES_LIST_SIZE; i++) {
+			if (!textures[i].loadFromFile(DUNGEON_TEXTURES_LIST[i]))
+			{
+				//ERROR!
+			}
+	}
 
 
 	this->player = player;

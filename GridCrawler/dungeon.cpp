@@ -1,13 +1,15 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\System\Time.hpp>
+#include "utilities.h"
+
 #include "gameplay.h"
 
-void UpdateWindow(void);
 
-sf::RenderWindow window;
+
+
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(800, 500), "Grid Crawler");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_HEIGHT_CELLS*CELL_HEIGHT_PX, WINDOW_WIDTH_CELLS*CELL_WIDTH_PX), "Grid Crawler");
 	sf::Clock clk;
 	sf::Time checkKeyNextTime = clk.restart();
 

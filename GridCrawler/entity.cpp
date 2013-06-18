@@ -4,8 +4,8 @@
 Entity::Entity(entity_t t) {
 	type = t;
 	pos = new Position(0,0);
-	windowX = 100;
-	windowY = 100;
+	texture = new sf::Texture();
+	sprite.setPosition(sf::Vector2f(windowX = 0, windowY = 0));
 }
 
 void Entity::move(int r, int c) {
@@ -17,7 +17,7 @@ void Entity::moveNorth(void) {
 	pos->row--;
 	
 	//ANIMATION QUEUE
-	windowY-=10;
+	windowY-=32;
 	sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
@@ -25,21 +25,21 @@ void Entity::moveEast(void) {
 	pos->col++;
 	
 	//ANIMATION QUEUE
-	windowX+=10;
+	windowX+=32;
 	sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
 void Entity::moveSouth(void) {
 	pos->row++;
 	//ANIMATION QUEUE
-	windowY+=10;
+	windowY+=32;
 	sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
 void Entity::moveWest(void) {
 	pos->col--;
 	//ANIMATION QUEUE
-	windowX-=10;
+	windowX-=32;
 	sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
@@ -49,15 +49,20 @@ Position* Entity::getPos(void) {
 
 
 void Entity::setTexture(char* str) {
-	if (!texture.loadFromFile(str))
+	if (!(*texture).loadFromFile(str))
 	{
 		//ERROR!
 	}
-	sprite.setTexture(texture);
-
-	sprite.setPosition(sf::Vector2f(100, 100)); //TEMP
+	sprite.setTexture(*texture);
 
 }
+
+void Entity::setTexture(sf::Texture* texture) {
+	this->texture = texture;
+	sprite.setTexture(*texture);
+
+}
+
 
 sf::Sprite* Entity::getSprite(void) {
 	return &sprite;

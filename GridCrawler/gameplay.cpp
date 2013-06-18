@@ -6,7 +6,7 @@ GamePlay::GamePlay(void) {
 	
 	player->setTexture("Brain Jelly.png");
 
-	currentMap = new Map(10, 10, player);
+	currentMap = new Map(10, 10, player, DUNGEON_MAP);
 }
 
 
