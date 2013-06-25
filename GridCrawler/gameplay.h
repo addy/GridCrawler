@@ -14,6 +14,8 @@ public:
 	GamePlay(void);
 	bool checkKeys(void);
 	void draw(sf::RenderWindow*);
+	void handleAnimation(void);
+	void handleMapEnvironment(void);
 };
 
 #endif

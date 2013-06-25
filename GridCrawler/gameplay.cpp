@@ -44,3 +44,13 @@ void GamePlay::draw(sf::RenderWindow* window) {
 
 
 }
+
+void GamePlay::handleAnimation(void) {
+
+
+}
+
+void GamePlay::handleMapEnvironment(void) {
+
+
+}
