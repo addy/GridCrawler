@@ -8,9 +8,8 @@
 int main() {
 
 	GamePlay* g = new GamePlay();
-
 	g->play();
 
-
-	return g->endGame();
+	delete g;
+	return 0;
 }

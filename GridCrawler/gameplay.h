@@ -24,11 +24,12 @@ public:
 	GamePlay(void);
 	~GamePlay(void);
 	void play(void);
-	int endGame(void);
-	void handleKeyChecking(void);
 	void draw(sf::RenderWindow*);
+
+	void handleKeyChecking(void);
 	void handleAnimation(void);
 	void handleMapEnvironment(void);
+	void handleWindow(void);
 };
 
 #endif

@@ -24,55 +24,43 @@ GamePlay::~GamePlay(void) {
 
 }
 
+/**
+	play()
 
+	Description:
+	The main gameplay loop. This should iterate many times a sec (faster than the framerate).
+*/
 void GamePlay::play(void) {
 
 	while (window->isOpen())
 	{
 		handleKeyChecking();
-		handleAnimation();
 		handleMapEnvironment();
+		handleAnimation();
+		handleWindow();
 
-
-		//update the screen at a maximum of a certain times per second
-		if(updateWindowNextTime <= clk.getElapsedTime()) {
-			window->clear(sf::Color::Black);
-
-			draw(window);
-			
-			window->display();
-			prevUpdateWindowTime = updateWindowNextTime;
-			updateWindowNextTime = clk.getElapsedTime()+sf::milliseconds((int)(1000/MAX_FPS)); //current time + milliseconds per frame
-		}
-
-
-		sf::Event event;
-		while (window->pollEvent(event))
-		{
-			// Close window : exit
-			if (event.type == sf::Event::Closed)
-				window->close();
-		}
 
 	}
 }
 
 
+/**
+	handleAnimation()
 
-int GamePlay::endGame(void) {
-	//free all memory.
-	return 0;
-}
+	Description:
+	Handle the animation list. Iterate through a linked list of currently running animations nodes and advance them by a tick.
+	Remove a node from the list if it is completed.
 
-
-
+*/
 void GamePlay::handleKeyChecking(void) {
-	//Check to see if movement animation is completed??
-	if(checkKeyNextTime <= clk.getElapsedTime()) {
+	if(checkKeyNextTime <= clk.getElapsedTime()) { //Check to see if movement animation is completed??
 
 		bool keyWasPressed = false;
 
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && !currentMap->isWall(WEST, player->getPos())) {
+		if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D )))
+		{
+		}
+		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && !currentMap->isWall(WEST, player->getPos())) {
 			player->moveWest();
 			keyWasPressed = true;
 		} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D )) && !currentMap->isWall(EAST, player->getPos())) {
@@ -80,7 +68,11 @@ void GamePlay::handleKeyChecking(void) {
 			keyWasPressed = true;
 		}
 
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && !currentMap->isWall(NORTH, player->getPos())) {
+
+		if((sf::Keyboard::isKeyPressed(sf::Keyboard::Up ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )))
+		{
+		}
+		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && !currentMap->isWall(NORTH, player->getPos())) {
 			player->moveNorth();
 			keyWasPressed = true;
 		} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )) && !currentMap->isWall(SOUTH, player->getPos())) {
@@ -94,14 +86,14 @@ void GamePlay::handleKeyChecking(void) {
 }
 
 
+/**
+	handleAnimation()
 
-void GamePlay::draw(sf::RenderWindow* window) {
-	//ANIMATION AND VIDEO STUFFS. HANDLE ANY ANIMATION / SPRITE MOVEMENTS
-	window->draw(*player->getSprite());
+	Description:
+	Handle the animation list. Iterate through a linked list of currently running animations nodes and advance them by a tick.
+	Remove a node from the list if it is completed.
 
-
-}
-
+*/
 void GamePlay::handleAnimation(void) {
 
 	AnimationNode* currentNode = animationList;
@@ -123,7 +115,58 @@ void GamePlay::handleAnimation(void) {
 
 }
 
+/**
+	handleMapEnvironment()
+
+	Description:
+	Handle MAP AI and passive map stuffs.
+*/
 void GamePlay::handleMapEnvironment(void) {
 
 
+}
+
+/**
+	handleWindow()
+
+	Description:
+	Handle framerates/window updates and check for close window events.
+*/
+void GamePlay::handleWindow(void) {
+
+		//update the screen at a maximum of a certain times per second
+		if(updateWindowNextTime <= clk.getElapsedTime()) {
+
+
+			draw(window);
+			
+
+			prevUpdateWindowTime = updateWindowNextTime;
+			updateWindowNextTime = clk.getElapsedTime()+sf::milliseconds((int)(1000/MAX_FPS)); //current time + milliseconds per frame
+		}
+
+
+		//check for close window events
+		sf::Event event;
+		while (window->pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window->close();
+		}
+}
+
+
+/**
+	draw()
+
+	Description:
+	Print all the sprites to the screen.
+*/
+void GamePlay::draw(sf::RenderWindow* window) {
+	window->clear(sf::Color::Black);
+
+	window->draw(*player->getSprite());
+	//iterate through all the entities in currentMap
+
+	window->display();
 }
