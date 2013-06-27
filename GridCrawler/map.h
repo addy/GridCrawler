@@ -40,6 +40,7 @@ public:
 	int width;
 
 	Map(int, int, Entity*, map_locale_t);
+	~Map(void);
 	void print(void);
 	void setTrap(Position*);
 	void handleMonsterMovement(void);

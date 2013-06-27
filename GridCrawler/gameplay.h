@@ -3,6 +3,7 @@
 
 #include <SFML\Graphics.hpp>
 #include <SFML\Window.hpp>
+#include "AnimationNode.h"
 #include "map.h"
 
 //MAX FPS
@@ -17,12 +18,14 @@ private:
 	sf::Time checkKeyNextTime;
 	sf::Time updateWindowNextTime;
 	sf::Time prevUpdateWindowTime;
+	AnimationNode* animationList;
 
 public:
 	GamePlay(void);
+	~GamePlay(void);
 	void play(void);
 	int endGame(void);
-	bool checkKeys(void);
+	void handleKeyChecking(void);
 	void draw(sf::RenderWindow*);
 	void handleAnimation(void);
 	void handleMapEnvironment(void);

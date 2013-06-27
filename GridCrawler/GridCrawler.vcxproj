@@ -68,6 +68,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationNode.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="gameplay.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationNode.cpp" />
     <ClCompile Include="dungeon.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="map.cpp" />

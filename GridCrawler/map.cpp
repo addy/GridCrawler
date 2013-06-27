@@ -32,6 +32,12 @@ Map::Map(int w, int h, Entity* player, map_locale_t mapType ) {
 	player->move(0,0);
 }
 
+Map::~Map(void) {
+	for(int r = 0; r < height; r++) delete[] dungeonWalls[r];
+	delete[] dungeonWalls;
+	delete textures;
+}
+
 
 
 inline bool Map::isWall(Position* p) {
