@@ -8,6 +8,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "position.h"
+#include "AnimationNode.h"
 
 class Entity {
 private:
@@ -22,10 +23,11 @@ public:
 	
 	Entity(entity_t);
 	void move(int, int);
-	void moveNorth(void);
-	void moveEast(void);
-	void moveSouth(void);
-	void moveWest(void);
+	//void moveNorth(void);
+	AnimationNode* moveNorth(void);
+	AnimationNode* moveEast(void);
+	AnimationNode* moveSouth(void);
+	AnimationNode* moveWest(void);
 	Position* getPos(void);
 
 	void setTexture(char*);

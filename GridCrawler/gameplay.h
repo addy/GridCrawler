@@ -19,6 +19,7 @@ private:
 	sf::Time updateWindowNextTime;
 	sf::Time prevUpdateWindowTime;
 	AnimationNode* animationList;
+	void addAnimationToList(AnimationNode*);
 
 public:
 	GamePlay(void);

@@ -60,23 +60,22 @@ void GamePlay::handleKeyChecking(void) {
 		if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D )))
 		{
 		}
-		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && !currentMap->isWall(WEST, player->getPos())) {
-			player->moveWest();
-			keyWasPressed = true;
-		} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D )) && !currentMap->isWall(EAST, player->getPos())) {
-			player->moveEast();
-			keyWasPressed = true;
-		}
-
-
-		if((sf::Keyboard::isKeyPressed(sf::Keyboard::Up ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )))
+		else if((sf::Keyboard::isKeyPressed(sf::Keyboard::Up ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )))
 		{
 		}
-		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && !currentMap->isWall(NORTH, player->getPos())) {
-			player->moveNorth();
+		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left ) || sf::Keyboard::isKeyPressed(sf::Keyboard::A )) && !currentMap->isWall(WEST, player->getPos())) {
+			addAnimationToList(player->moveWest());
 			keyWasPressed = true;
-		} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )) && !currentMap->isWall(SOUTH, player->getPos())) {
-			player->moveSouth();
+		} else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D )) && !currentMap->isWall(EAST, player->getPos())) {
+			addAnimationToList(player->moveEast());
+			keyWasPressed = true;
+		}
+		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up  ) || sf::Keyboard::isKeyPressed(sf::Keyboard::W )) && !currentMap->isWall(NORTH, player->getPos())) {
+			addAnimationToList(player->moveNorth());
+			keyWasPressed = true;
+		} 
+		else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S )) && !currentMap->isWall(SOUTH, player->getPos())) {
+			addAnimationToList(player->moveSouth());
 			keyWasPressed = true;
 		}
 
@@ -105,12 +104,15 @@ void GamePlay::handleAnimation(void) {
 
 		if(currentNode->done()) {
 			if(prevNode != NULL) prevNode->next(currentNode->next());
-			currentNode->~AnimationNode();
+			else if(currentNode == animationList) animationList = NULL;
 			delete currentNode;
+			currentNode = NULL;
+		} else {
+			prevNode = currentNode;
+			currentNode = currentNode->next();
 		}
 
-		prevNode = currentNode;
-		currentNode = currentNode->next();
+		
 	}
 
 }
@@ -169,4 +171,11 @@ void GamePlay::draw(sf::RenderWindow* window) {
 	//iterate through all the entities in currentMap
 
 	window->display();
+}
+
+
+inline void GamePlay::addAnimationToList(AnimationNode* newAnim) {
+	newAnim->start(clk.getElapsedTime());
+	newAnim->next(animationList);
+	animationList = newAnim;
 }

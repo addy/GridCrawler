@@ -13,34 +13,32 @@ void Entity::move(int r, int c) {
 	pos->col = c;
 }
 
-void Entity::moveNorth(void) {
+AnimationNode* Entity::moveNorth(void) {
 	pos->row--;
-	
-	//ANIMATION QUEUE
 	windowY-=32;
-	sprite.setPosition(sf::Vector2f(windowX, windowY));
+	return new AnimationNode(&sprite, sf::milliseconds(100), 0, 0, -32, 0, 0);
+	//sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
-void Entity::moveEast(void) {
+AnimationNode* Entity::moveEast(void) {
 	pos->col++;
-	
-	//ANIMATION QUEUE
 	windowX+=32;
-	sprite.setPosition(sf::Vector2f(windowX, windowY));
+	return new AnimationNode(&sprite, sf::milliseconds(100), 32, 0, 0, 0, 0);
+	//sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
-void Entity::moveSouth(void) {
+AnimationNode* Entity::moveSouth(void) {
 	pos->row++;
-	//ANIMATION QUEUE
 	windowY+=32;
-	sprite.setPosition(sf::Vector2f(windowX, windowY));
+	return new AnimationNode(&sprite, sf::milliseconds(100), 0, 0, 32, 0, 0);
+	//sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
-void Entity::moveWest(void) {
+AnimationNode* Entity::moveWest(void) {
 	pos->col--;
-	//ANIMATION QUEUE
 	windowX-=32;
-	sprite.setPosition(sf::Vector2f(windowX, windowY));
+	return new AnimationNode(&sprite, sf::milliseconds(100), -32, 0, 0, 0, 0);
+	//sprite.setPosition(sf::Vector2f(windowX, windowY));
 }
 
 Position* Entity::getPos(void) {
