@@ -34,11 +34,10 @@ void GamePlay::play(void) {
 
 	while (window->isOpen())
 	{
-		handleKeyChecking();
 		handleMapEnvironment();
 		handleAnimation();
 		handleWindow();
-
+		handleKeyChecking();
 
 	}
 }

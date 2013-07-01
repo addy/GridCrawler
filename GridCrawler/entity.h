@@ -14,10 +14,14 @@ class Entity {
 private:
 	entity_t type;
 	Position* pos;
+	heading_t heading;
 	sf::Sprite sprite;
 	sf::Texture* texture;
 	float windowX; //Top left corner is 0,0
 	float windowY; //Y increases downscreen
+
+	double rotateClockWiseDegreesToHeading(heading_t);
+	double rotateDegreesToHeading(heading_t);
 
 public:
 	

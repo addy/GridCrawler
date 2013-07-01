@@ -1,11 +1,12 @@
 #ifndef MAP_H
 #define MAP_H
 
-#define heading_t	int
-#define NORTH		0
-#define EAST		1
-#define SOUTH		2
-#define WEST		3
+#define heading_t			unsigned int
+#define NORTH				0
+#define EAST				1
+#define SOUTH				2
+#define WEST				3
+#define NUMBER_OF_HEADINGS	4
 
 typedef int map_locale_t;
 #define CAVE_MAP	0
@@ -17,10 +18,10 @@ typedef int map_locale_t;
 #include "entity.h"
 
 
-const unsigned int CELL_HEIGHT_PX = 32;
-const unsigned int CELL_WIDTH_PX = 32;
-const unsigned int WINDOW_HEIGHT_CELLS = 10;
-const unsigned int WINDOW_WIDTH_CELLS = 10;
+const int CELL_HEIGHT_PX = 32;
+const int CELL_WIDTH_PX = 32;
+const int WINDOW_HEIGHT_CELLS = 10;
+const int WINDOW_WIDTH_CELLS = 10;
 
 char* const DUNGEON_TEXTURES_LIST[] = {"Brain Jelly.png", "Young Alien.png"};
 const int DUNGEON_TEXTURES_LIST_SIZE = sizeof(DUNGEON_TEXTURES_LIST)/sizeof(char*);

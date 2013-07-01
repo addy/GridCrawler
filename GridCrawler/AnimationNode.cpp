@@ -50,12 +50,12 @@ void AnimationNode::tick(sf::Time t)
 
 	sprite->setPosition((float)(xTranslateStart + progressRatio*xTranslate),(float)(yTranslateStart + progressRatio*yTranslate));
 	sprite->setScale((float)(xTransformStart + progressRatio*xTransform), (float)(yTransformStart + progressRatio*yTransform));
-	sprite->rotate((float)(rotationStart + progressRatio*rotation));
+	sprite->setRotation((float)(rotationStart + progressRatio*rotation));
 }
 
 bool AnimationNode::done(void) 
 {
-	return (progressRatio == 1.0);
+	return  (progressRatio == 1.0);
 }
 
 void AnimationNode::next(AnimationNode* n) { nextNode = n; }
